@@ -34,6 +34,7 @@ function pugPlugin() {
 }
 
 export default defineConfig({
+  base: '/satisfactory-factory-planner-site/',
   plugins: [pugPlugin()],
   css: {
     preprocessorOptions: {
