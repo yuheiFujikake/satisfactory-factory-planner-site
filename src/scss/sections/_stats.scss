@@ -1,0 +1,105 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.stats {
+  padding: clamp(60px, 8vw, 100px) 0;
+  background: v.$color-surface;
+  border-top: 1px solid v.$color-border;
+  border-bottom: 1px solid v.$color-border;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(v.$color-primary, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    position: relative;
+
+    @include m.sp { grid-template-columns: 1fr; gap: 20px; }
+  }
+}
+
+.stat-card {
+  text-align: center;
+  padding: 48px 24px;
+  position: relative;
+  transition: transform v.$duration-base v.$ease-out-expo;
+
+  // Dividers between cards
+  & + & {
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: v.$color-border;
+
+      @include m.sp { display: none; }
+    }
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+
+    .stat-card__count { animation: counter-tick 0.3s ease; }
+    .stat-card__number::after { opacity: 1; }
+  }
+
+  &__number {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+
+    &::after {
+      content: '+';
+      position: absolute;
+      top: 0;
+      right: -20px;
+      font-family: v.$font-heading;
+      font-size: 2rem;
+      font-weight: 700;
+      color: v.$color-primary;
+      opacity: 0.5;
+      transition: opacity v.$duration-base;
+    }
+  }
+
+  &__count {
+    display: block;
+    font-family: v.$font-heading;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1;
+    @include m.text-gradient(v.$color-primary-light, v.$color-accent);
+    transition: transform 0.1s;
+    letter-spacing: -0.03em;
+  }
+
+  &__label {
+    font-family: v.$font-heading;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: v.$color-text;
+    margin-bottom: 6px;
+  }
+
+  &__desc {
+    font-size: 0.82rem;
+    color: v.$color-text-subtle;
+    font-family: v.$font-mono;
+  }
+}

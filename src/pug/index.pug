@@ -1,0 +1,539 @@
+doctype html
+html(lang="ja")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="description" content="Satisfactory の工場生産計画を自動化する無料Webツール。生産目標を設定するだけで、必要な原材料・製造機械数・電力消費量を瞬時に計算。依存関係グラフで生産ラインを可視化します。")
+    meta(name="keywords" content="Satisfactory, factory planner, 工場計画, 生産計算, サティスファクトリー, 生産ライン, 工場最適化, ゲームツール")
+    meta(name="author" content="Satisfactory Factory Planner")
+    meta(name="robots" content="index, follow")
+
+    //- OGP
+    meta(property="og:type" content="website")
+    meta(property="og:title" content="Satisfactory Factory Planner — 工場生産計画を自動計算")
+    meta(property="og:description" content="生産目標を設定するだけ。必要な原材料・製造機械数・電力消費量を瞬時に自動計算。Satisfactory プレイヤーのための無料Webツール。")
+    meta(property="og:image" content="/screenshots/screen-result.png")
+    meta(property="og:url" content="https://satisfactory-factory-planner.vercel.app/")
+    meta(property="og:site_name" content="Satisfactory Factory Planner")
+    meta(property="og:locale" content="ja_JP")
+
+    //- Twitter Card
+    meta(name="twitter:card" content="summary_large_image")
+    meta(name="twitter:title" content="Satisfactory Factory Planner — 工場生産計画を自動計算")
+    meta(name="twitter:description" content="生産目標を設定するだけ。必要な原材料・製造機械数・電力消費量を瞬時に自動計算。")
+    meta(name="twitter:image" content="/screenshots/screen-result.png")
+
+    title Satisfactory Factory Planner — 工場生産計画を自動計算
+
+    link(rel="icon" type="image/svg+xml" href="/favicon.svg")
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="/src/scss/main.scss")
+
+    //- JSON-LD Structured Data
+    script(type="application/ld+json").
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Satisfactory Factory Planner",
+        "description": "Satisfactoryの工場生産計画を自動化するWebツール。生産目標から必要な原材料・機械数・電力消費を自動計算。",
+        "url": "https://satisfactory-factory-planner.vercel.app/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "yuheiFujikake"
+        },
+        "featureList": [
+          "自動生産計算",
+          "依存関係グラフ可視化",
+          "電力消費計算",
+          "代替レシピ対応",
+          "マルチプラン管理",
+          "日本語・英語対応"
+        ]
+      }
+
+  body
+    //- Scroll progress bar
+    .scroll-progress
+      .scroll-progress__bar
+
+    //- Header
+    header.header
+      nav.nav.container
+        a.nav__logo(href="#hero")
+          .nav__logo-icon
+            svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+              rect(x="2" y="10" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+              rect(x="10" y="6" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+              rect(x="10" y="14" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+              rect(x="18" y="10" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+              line(x1="6" y1="12" x2="10" y2="8" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+              line(x1="6" y1="12" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+              line(x1="14" y1="8" x2="18" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+              line(x1="14" y1="16" x2="18" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+          span.nav__logo-text SFP
+        ul.nav__links
+          li
+            a.nav__link(href="#about") ツールについて
+          li
+            a.nav__link(href="#features") 機能
+          li
+            a.nav__link(href="#howto") 使い方
+          li
+            a.nav__link(href="#feedback") フィードバック
+        a.nav__cta.btn.btn--primary(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener")
+          span ツールを使う
+          svg(width="14" height="14" viewBox="0 0 14 14" fill="none")
+            path(d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round")
+        button.nav__menu-btn(aria-label="メニュー" aria-expanded="false")
+          span
+          span
+          span
+
+    //- Mobile menu
+    .nav__mobile-menu
+      ul.nav__mobile-links
+        li
+          a(href="#about") ツールについて
+        li
+          a(href="#features") 機能
+        li
+          a(href="#howto") 使い方
+        li
+          a(href="#feedback") フィードバック
+        li
+          a.btn.btn--primary(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener") ツールを使う
+
+    main
+      //- ===== HERO =====
+      section.hero#hero
+        canvas.hero__canvas
+        .hero__bg-grid
+        .container
+          .hero__content
+            .hero__badge
+              span.hero__badge-dot
+              span Satisfactory 工場計画ツール &nbsp;—&nbsp; 完全無料
+            h1.hero__title
+              span.hero__title-line 複雑な生産ラインを
+              span.hero__title-line.hero__title-line--accent 自動で最適化
+            p.hero__subtitle
+              | 生産目標を設定するだけ。必要な原材料・製造機械数・
+              | 電力消費量を瞬時に算出します。
+            .hero__actions
+              a.btn.btn--primary.btn--lg(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener")
+                svg(width="18" height="18" viewBox="0 0 18 18" fill="none")
+                  path(d="M9 2L9 16M2 9L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+                span いますぐ無料で使う
+              a.btn.btn--ghost.btn--lg(href="https://github.com/yuheiFujikake/satisfactory-factory-planner" target="_blank" rel="noopener")
+                svg(width="18" height="18" viewBox="0 0 24 24" fill="currentColor")
+                  path(d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z")
+                span GitHubで見る
+          .hero__visual
+            .hero__screen-mock
+              .hero__screen-mock-bar
+                span
+                span
+                span
+              .hero__screen-mock-body
+                .hero__mock-stats
+                  .hero__mock-stat
+                    span.hero__mock-stat-label 総電力
+                    span.hero__mock-stat-value 87.0 MW
+                  .hero__mock-stat
+                    span.hero__mock-stat-label アイテム種類
+                    span.hero__mock-stat-value 6
+                  .hero__mock-stat
+                    span.hero__mock-stat-label 建物種類
+                    span.hero__mock-stat-value 4
+                  .hero__mock-stat
+                    span.hero__mock-stat-label 総建物数
+                    span.hero__mock-stat-value 6
+                table.hero__mock-table
+                  thead
+                    tr
+                      th アイテム
+                      th 必要量/分
+                      th 建物
+                      th 必要台数
+                  tbody
+                    tr.hero__mock-row--target
+                      td 回路基板
+                      td.hero__mock-highlight 7.5
+                      td 組立機
+                      td 1
+                    tr
+                      td 銅板
+                      td.hero__mock-highlight 15
+                      td 製作機
+                      td 2
+                    tr
+                      td プラスチック
+                      td.hero__mock-highlight 30
+                      td 精製機
+                      td 2
+                    tr
+                      td 銅のインゴット
+                      td.hero__mock-highlight 30
+                      td 製錬炉
+                      td 1
+                    tr.hero__mock-row--raw
+                      td 原油 raw
+                      td.hero__mock-highlight 45
+                      td —
+                      td —
+                    tr.hero__mock-row--raw
+                      td 銅鉱石 raw
+                      td.hero__mock-highlight 30
+                      td —
+                      td —
+        .hero__scroll-indicator
+          .hero__scroll-dot
+          span スクロール
+
+      //- ===== ABOUT =====
+      section.about#about
+        .container
+          .about__inner
+            .about__text
+              .section-tag ツールについて
+              h2.section-title 工場計画の
+                br
+                span.text-accent 複雑さを解消
+              p.about__lead
+                | Satisfactory では、高度なアイテムを作るために
+                | 膨大な数の中間素材と製造機械が必要です。
+                | 手作業で計算するのは現実的ではありません。
+            .about__problems
+              .about__problem
+                .about__problem-icon
+                  svg(width="24" height="24" viewBox="0 0 24 24" fill="none")
+                    path(d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round")
+                    path(d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round")
+                    path(d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round")
+                .about__problem-content
+                  h3 多段階レシピが複雑
+                  p 回路基板ひとつ作るだけで、銅板・銅インゴット・原油・プラスチックと何十もの依存が発生します。
+              .about__problem
+                .about__problem-icon
+                  svg(width="24" height="24" viewBox="0 0 24 24" fill="none")
+                    rect(x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5")
+                    rect(x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5")
+                    rect(x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5")
+                    rect(x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5")
+                .about__problem-content
+                  h3 機械数の算出が大変
+                  p 生産レートと機械の出力から必要台数を計算して、さらにオーバークロックも考慮すると煩雑です。
+              .about__problem
+                .about__problem-icon
+                  svg(width="24" height="24" viewBox="0 0 24 24" fill="none")
+                    circle(cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5")
+                    path(d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+                .about__problem-content
+                  h3 電力消費の試算が困難
+                  p 複数機械のオーバークロックを込みで電力消費を事前に把握するには専用の計算が必要です。
+          .about__solution
+            .about__solution-label ↓ Satisfactory Factory Planner が解決
+            p.about__solution-text
+              strong 目標アイテムと生産量を設定するだけ
+              | で、すべてを自動計算します。
+
+      //- ===== FEATURES =====
+      section.features#features
+        .container
+          .section-header
+            .section-tag 機能
+            h2.section-title すべての計画に
+              br
+              span.text-accent 必要な機能を
+            p.section-desc 127アイテム・107レシピ・11種類の製造機械に対応した本格的な生産計算ツールです。
+          .features__grid
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  path(d="M7 14h4l3-8 4 16 3-8h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
+              h3.feature-card__title 自動生産計算
+              p.feature-card__desc 生産目標を設定するだけで、すべての中間素材・原材料の必要量を再帰的に自動算出します。
+              .feature-card__tag 計算エンジン
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  circle(cx="7" cy="14" r="2.5" stroke="currentColor" stroke-width="1.8")
+                  circle(cx="21" cy="8" r="2.5" stroke="currentColor" stroke-width="1.8")
+                  circle(cx="21" cy="20" r="2.5" stroke="currentColor" stroke-width="1.8")
+                  line(x1="9.5" y1="13" x2="18.5" y2="9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+                  line(x1="9.5" y1="15" x2="18.5" y2="18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+              h3.feature-card__title 依存関係グラフ
+              p.feature-card__desc 生産チェーン全体をインタラクティブなグラフで可視化。ノードの位置は自由に移動・保存できます。
+              .feature-card__tag ビジュアライズ
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  path(d="M14 4v4M14 20v4M4 14h4M20 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round")
+                  circle(cx="14" cy="14" r="5" stroke="currentColor" stroke-width="1.8")
+                  path(d="M10 10l8 8M18 10l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5")
+              h3.feature-card__title 電力消費計算
+              p.feature-card__desc オーバークロック率（1〜250%）を設定すると、全機械の消費電力を P = 基本電力 × 比率^1.6 で正確に試算します。
+              .feature-card__tag オーバークロック対応
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  path(d="M14 4C8.477 4 4 8.477 4 14s4.477 10 10 10 10-4.477 10-10S19.523 4 14 4z" stroke="currentColor" stroke-width="1.8")
+                  path(d="M9 14h10M14 9v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round")
+              h3.feature-card__title 代替レシピ対応
+              p.feature-card__desc 複数の製造ルートを比較・切り替え。アイテムごとに最適なレシピを選択して生産効率を最大化します。
+              .feature-card__tag レシピ最適化
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  rect(x="4" y="6" width="20" height="4" rx="1" stroke="currentColor" stroke-width="1.8")
+                  rect(x="4" y="13" width="20" height="4" rx="1" stroke="currentColor" stroke-width="1.8")
+                  rect(x="4" y="20" width="12" height="4" rx="1" stroke="currentColor" stroke-width="1.8")
+              h3.feature-card__title マルチプラン管理
+              p.feature-card__desc 複数の生産計画を同時に管理。JSON形式でエクスポート・インポートでき、他プレイヤーとの共有も可能です。
+              .feature-card__tag プラン管理
+            .feature-card
+              .feature-card__icon-wrap
+                svg(width="28" height="28" viewBox="0 0 28 28" fill="none")
+                  circle(cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.8")
+                  path(d="M14 4c0 0-4 4-4 10s4 10 4 10" stroke="currentColor" stroke-width="1.5")
+                  path(d="M14 4c0 0 4 4 4 10s-4 10-4 10" stroke="currentColor" stroke-width="1.5")
+                  path(d="M4 14h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+              h3.feature-card__title 多言語対応
+              p.feature-card__desc 日本語・英語を切り替え可能。全127アイテム・全レシピが両言語に対応しています。
+              .feature-card__tag 日本語 / English
+
+      //- ===== DEMO =====
+      section.demo#demo
+        .container
+          .section-header
+            .section-tag スクリーンショット
+            h2.section-title 実際の画面を
+              br
+              span.text-accent ご覧ください
+          .demo__screens
+            .demo__screen.demo__screen--main
+              .demo__screen-label 計算結果テーブル
+              .demo__browser-frame
+                .demo__browser-bar
+                  .demo__browser-dots
+                    span
+                    span
+                    span
+                  .demo__browser-url
+                    svg(width="12" height="12" viewBox="0 0 12 12" fill="none")
+                      circle(cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1")
+                      path(d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="0.8" stroke-linecap="round")
+                    span satisfactory-factory-planner.vercel.app
+                picture
+                  source(media="(max-width: 1023px)" srcset="/screenshots/screen-result-sp.png")
+                  img.demo__screenshot(src="/screenshots/screen-result-pc.png" alt="計算結果テーブル — 必要素材・機械数・電力消費を一覧表示" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'")
+                .demo__screenshot-fallback(style="display:none")
+                  .demo__mock-preview
+                    .demo__mock-header
+                      span.demo__mock-stat 総電力: 87.0 MW
+                      span.demo__mock-stat アイテム: 6種
+                      span.demo__mock-stat 建物: 6台
+                    table.demo__mock-table
+                      thead
+                        tr
+                          th アイテム
+                          th 必要量/分
+                          th 建物
+                          th 台数
+                      tbody
+                        tr
+                          td 回路基板
+                          td 7.5
+                          td 組立機
+                          td 1
+                        tr
+                          td 銅板
+                          td 15
+                          td 製作機
+                          td 2
+                        tr
+                          td プラスチック
+                          td 30
+                          td 精製機
+                          td 2
+                        tr
+                          td 銅のインゴット
+                          td 30
+                          td 製錬炉
+                          td 1
+                        tr.demo__mock-raw
+                          td 原油 raw
+                          td 45
+                          td —
+                          td —
+                        tr.demo__mock-raw
+                          td 銅鉱石 raw
+                          td 30
+                          td —
+                          td —
+            .demo__screen.demo__screen--graph
+              .demo__screen-label 依存関係グラフ
+              .demo__browser-frame
+                .demo__browser-bar
+                  .demo__browser-dots
+                    span
+                    span
+                    span
+                  .demo__browser-url
+                    svg(width="12" height="12" viewBox="0 0 12 12" fill="none")
+                      circle(cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1")
+                      path(d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="0.8" stroke-linecap="round")
+                    span satisfactory-factory-planner.vercel.app
+                picture
+                  source(media="(max-width: 1023px)" srcset="/screenshots/screen-graph-sp.png")
+                  img.demo__screenshot(src="/screenshots/screen-graph-pc.png" alt="依存関係グラフ — 生産チェーン全体をグラフで可視化" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'")
+                .demo__screenshot-fallback(style="display:none")
+                  .demo__graph-mock
+                    .demo__graph-node.demo__graph-node--target 回路基板
+                    .demo__graph-row
+                      .demo__graph-node 銅板
+                      .demo__graph-node プラスチック
+                    .demo__graph-row
+                      .demo__graph-node 銅インゴット
+                      .demo__graph-node--raw 原油
+                    .demo__graph-row
+                      .demo__graph-node--raw 銅鉱石
+
+      //- ===== STATS =====
+      section.stats
+        .container
+          .stats__grid
+            .stat-card
+              .stat-card__number(data-target="127")
+                span.stat-card__count 0
+              .stat-card__label アイテム
+              .stat-card__desc ゲーム内全アイテムに対応
+            .stat-card
+              .stat-card__number(data-target="107")
+                span.stat-card__count 0
+              .stat-card__label レシピ
+              .stat-card__desc 代替レシピを含む全レシピ
+            .stat-card
+              .stat-card__number(data-target="11")
+                span.stat-card__count 0
+              .stat-card__label 製造機械
+              .stat-card__desc 製錬炉から量子エンコーダーまで
+
+      //- ===== HOW TO USE =====
+      section.howto#howto
+        .container
+          .section-header
+            .section-tag 使い方
+            h2.section-title たった
+              span.text-accent 3ステップ
+              | で完了
+          .howto__steps
+            .howto__step
+              .howto__step-number 01
+              .howto__step-icon
+                svg(width="32" height="32" viewBox="0 0 32 32" fill="none")
+                  rect(x="6" y="8" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8")
+                  path(d="M11 16h10M11 20h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+                  circle(cx="16" cy="12" r="2" fill="currentColor" opacity="0.6")
+              h3.howto__step-title 生産目標を設定
+              p.howto__step-desc プランを作成し、生産したいアイテムと1分あたりの生産量を入力します。複数アイテムの同時設定も可能です。
+            .howto__step-connector
+              svg(width="40" height="20" viewBox="0 0 40 20" fill="none")
+                path(d="M0 10 Q20 0 40 10" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3")
+                path(d="M34 7l6 3-6 3" fill="currentColor" opacity="0.6")
+            .howto__step
+              .howto__step-number 02
+              .howto__step-icon
+                svg(width="32" height="32" viewBox="0 0 32 32" fill="none")
+                  circle(cx="16" cy="16" r="8" stroke="currentColor" stroke-width="1.8")
+                  path(d="M16 12v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round")
+                  path(d="M8 8l3 3M21 8l-3 3M8 24l3-3M21 24l-3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5")
+              h3.howto__step-title 自動計算で確認
+              p.howto__step-desc 「計算実行」ボタンを押すだけ。全素材・機械数・電力消費が瞬時に算出され、テーブルで一覧表示されます。
+            .howto__step-connector
+              svg(width="40" height="20" viewBox="0 0 40 20" fill="none")
+                path(d="M0 10 Q20 0 40 10" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3")
+                path(d="M34 7l6 3-6 3" fill="currentColor" opacity="0.6")
+            .howto__step
+              .howto__step-number 03
+              .howto__step-icon
+                svg(width="32" height="32" viewBox="0 0 32 32" fill="none")
+                  circle(cx="10" cy="20" r="3" stroke="currentColor" stroke-width="1.8")
+                  circle(cx="22" cy="12" r="3" stroke="currentColor" stroke-width="1.8")
+                  circle(cx="22" cy="24" r="3" stroke="currentColor" stroke-width="1.8")
+                  circle(cx="10" cy="8" r="2" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+                  line(x1="13" y1="19" x2="19" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+                  line(x1="13" y1="21" x2="19" y2="22.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round")
+                  line(x1="12" y1="9" x2="19" y2="12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5")
+              h3.howto__step-title グラフで可視化
+              p.howto__step-desc 「依存グラフ」タブでは生産チェーン全体をフロー図で確認。ノードは自由に移動・整理でき、PNG形式でエクスポートも可能です。
+
+      //- ===== CTA =====
+      section.cta#feedback
+        .cta__bg-glow
+        .container
+          .cta__inner
+            .section-tag 今すぐはじめる
+            h2.cta__title 工場計画を、
+              br
+              span.text-accent もっとスマートに
+            p.cta__desc 完全無料・インストール不要・ブラウザだけで使えます。すべてのデータはローカルに保存されます。
+            .cta__actions
+              a.btn.btn--primary.btn--xl(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener")
+                svg(width="20" height="20" viewBox="0 0 20 20" fill="none")
+                  path(d="M10 2l8 4.5V14L10 18.5 2 14V6.5L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round")
+                  path(d="M10 2v16.5M2 6.5l8 5 8-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round")
+                span ツールを無料で使う
+              a.btn.btn--outline.btn--xl(href="https://github.com/yuheiFujikake/satisfactory-factory-planner/issues" target="_blank" rel="noopener")
+                svg(width="20" height="20" viewBox="0 0 24 24" fill="currentColor")
+                  path(d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z")
+                span 不具合・改善リクエスト
+
+    //- ===== FOOTER =====
+    footer.footer
+      .container
+        .footer__inner
+          .footer__brand
+            .footer__logo
+              svg(width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+                rect(x="2" y="10" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+                rect(x="10" y="6" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+                rect(x="10" y="14" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+                rect(x="18" y="10" width="4" height="4" rx="0.5" fill="currentColor" opacity="0.9")
+                line(x1="6" y1="12" x2="10" y2="8" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+                line(x1="6" y1="12" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+                line(x1="14" y1="8" x2="18" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+                line(x1="14" y1="16" x2="18" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.6")
+              span Satisfactory Factory Planner
+            p.footer__tagline Satisfactory の工場計画をスマートに。
+          .footer__links
+            .footer__link-group
+              h4 ツール
+              ul
+                li
+                  a(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener") アプリを開く
+                li
+                  a(href="https://satisfactory-factory-planner.vercel.app/" target="_blank" rel="noopener") 使い方ガイド
+            .footer__link-group
+              h4 開発
+              ul
+                li
+                  a(href="https://github.com/yuheiFujikake/satisfactory-factory-planner" target="_blank" rel="noopener") GitHub
+                li
+                  a(href="https://github.com/yuheiFujikake/satisfactory-factory-planner/issues" target="_blank" rel="noopener") Issues（不具合・要望）
+                li
+                  a(href="https://github.com/yuheiFujikake/satisfactory-factory-planner/releases" target="_blank" rel="noopener") リリースノート
+        .footer__bottom
+          p.footer__copy &copy; 2026 Satisfactory Factory Planner. This tool is not affiliated with Coffee Stain Studios.
+          p.footer__disclaimer Satisfactory is a trademark of Coffee Stain Studios.
+
+    script(type="module" src="/src/ts/main.ts")

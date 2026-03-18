@@ -1,0 +1,87 @@
+@use 'variables' as v;
+
+// ============================
+// Responsive breakpoints
+// ============================
+@mixin sp {
+  @media (max-width: #{v.$bp-sp}) { @content; }
+}
+@mixin tab {
+  @media (min-width: #{v.$bp-sp + 1}) and (max-width: #{v.$bp-tab}) { @content; }
+}
+@mixin pc {
+  @media (min-width: #{v.$bp-tab + 1}) and (max-width: #{v.$bp-pc}) { @content; }
+}
+@mixin wpc {
+  @media (min-width: #{v.$bp-pc + 1}) { @content; }
+}
+@mixin tab-up {
+  @media (min-width: #{v.$bp-sp + 1}) { @content; }
+}
+@mixin pc-up {
+  @media (min-width: #{v.$bp-tab + 1}) { @content; }
+}
+@mixin sp-tab {
+  @media (max-width: #{v.$bp-tab}) { @content; }
+}
+
+// ============================
+// Utility
+// ============================
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin glass($alpha: 0.06) {
+  background: rgba(255, 255, 255, $alpha);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@mixin glow-border($color: v.$color-primary, $alpha: 0.4) {
+  box-shadow: 0 0 0 1px rgba($color, $alpha), 0 0 20px rgba($color, 0.12);
+}
+
+@mixin card-base {
+  background: v.$color-card;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  transition: transform v.$duration-base v.$ease-out-expo,
+              background v.$duration-base v.$ease-in-out,
+              border-color v.$duration-base v.$ease-in-out,
+              box-shadow v.$duration-base v.$ease-in-out;
+}
+
+@mixin text-gradient($from: v.$color-primary, $to: v.$color-accent) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,292 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-top: clamp(90px, 10vh, 120px);
+  padding-bottom: clamp(80px, 10vh, 120px);
+  overflow: hidden;
+
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  &__bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79, 142, 247, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79, 142, 247, 0.035) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: grid-fade 1.5s ease forwards;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+
+    @include m.sp-tab {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+
+  &__content {
+    max-width: 560px;
+
+    @include m.sp-tab {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px 6px 10px;
+    background: rgba(v.$color-primary, 0.1);
+    border: 1px solid rgba(v.$color-primary, 0.25);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: v.$color-primary-light;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s v.$ease-out-expo both;
+    letter-spacing: 0.02em;
+  }
+
+  &__badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: v.$color-primary;
+    animation: dot-pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-family: v.$font-heading;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: v.$color-text;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s v.$ease-out-expo both;
+
+    .char {
+      display: inline-block;
+    }
+  }
+
+  &__title-line {
+    display: block;
+
+    &--accent {
+      @include m.text-gradient(v.$color-primary-light, v.$color-accent);
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.05rem;
+    color: v.$color-text-muted;
+    line-height: 1.75;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s v.$ease-out-expo both;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s v.$ease-out-expo both;
+
+    @include m.sp-tab { justify-content: center; }
+    @include m.sp {
+      flex-direction: column;
+      align-items: stretch;
+
+      .btn { justify-content: center; }
+    }
+  }
+
+  // ---- Visual / Mock UI ----
+  &__visual {
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s v.$ease-out-expo both;
+
+    @include m.sp-tab {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+  }
+
+  &__screen-mock {
+    background: v.$color-surface;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-xl;
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 0 60px rgba(v.$color-primary, 0.06);
+    animation: float 5s ease-in-out 1s infinite;
+  }
+
+  &__screen-mock-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid v.$color-border;
+
+    span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+
+      &:nth-child(1) { background: #ff5f57; }
+      &:nth-child(2) { background: #febc2e; }
+      &:nth-child(3) { background: #28c840; }
+    }
+  }
+
+  &__screen-mock-body {
+    padding: 16px;
+  }
+
+  &__mock-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+
+    @include m.sp {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__mock-stat {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    padding: 8px 10px;
+  }
+
+  &__mock-stat-label {
+    display: block;
+    font-size: 0.6rem;
+    color: v.$color-text-subtle;
+    margin-bottom: 2px;
+    font-family: v.$font-mono;
+  }
+
+  &__mock-stat-value {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: v.$color-accent;
+    font-family: v.$font-mono;
+  }
+
+  &__mock-table {
+    width: 100%;
+    font-size: 0.72rem;
+    border-radius: v.$radius-sm;
+    overflow: hidden;
+
+    th {
+      background: rgba(79, 142, 247, 0.1);
+      color: v.$color-text-muted;
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 600;
+      font-family: v.$font-mono;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 7px 8px;
+      color: v.$color-text;
+      border-bottom: 1px solid rgba(v.$color-border, 0.5);
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    tbody tr:hover td { background: rgba(255, 255, 255, 0.02); }
+  }
+
+  &__mock-highlight {
+    color: v.$color-primary-light;
+    font-weight: 700;
+    font-family: v.$font-mono;
+  }
+
+  &__mock-row--target td { background: rgba(v.$color-primary, 0.06); }
+  &__mock-row--raw td { background: rgba(v.$color-raw, 0.4); color: v.$color-text-muted; }
+
+  // ---- Scroll indicator ----
+  &__scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 0.8s 1.2s ease both;
+
+    span {
+      font-size: 0.7rem;
+      color: v.$color-text-subtle;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: v.$font-mono;
+    }
+  }
+
+  &__scroll-dot {
+    width: 24px;
+    height: 38px;
+    border: 1.5px solid rgba(v.$color-text, 0.2);
+    border-radius: 12px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: v.$color-primary;
+      border-radius: 2px;
+      animation: scroll-bounce 2s ease-in-out infinite;
+    }
+  }
+}

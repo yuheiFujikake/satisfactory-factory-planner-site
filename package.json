@@ -1,0 +1,19 @@
+{
+  "name": "satisfactory-factory-planner-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "pug": "^3.0.3",
+    "sass": "^1.87.0",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7"
+  }
+}

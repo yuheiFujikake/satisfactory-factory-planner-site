@@ -1,0 +1,102 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.footer {
+  background: v.$color-surface;
+  border-top: 1px solid v.$color-border;
+  padding: 60px 0 32px;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    margin-bottom: 48px;
+    align-items: start;
+
+    @include m.sp-tab {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  &__brand {}
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      background: rgba(v.$color-primary, 0.12);
+      border-radius: v.$radius-sm;
+      padding: 4px;
+      color: v.$color-primary;
+    }
+
+    span {
+      font-family: v.$font-heading;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: v.$color-text;
+    }
+  }
+
+  &__tagline {
+    font-size: 0.875rem;
+    color: v.$color-text-subtle;
+    line-height: 1.6;
+  }
+
+  &__links {
+    display: flex;
+    gap: 48px;
+
+    @include m.sp { flex-direction: column; gap: 28px; }
+  }
+
+  &__link-group {
+    h4 {
+      font-family: v.$font-heading;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: v.$color-text-subtle;
+      margin-bottom: 14px;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    a {
+      font-size: 0.875rem;
+      color: v.$color-text-muted;
+      transition: color v.$duration-fast;
+
+      &:hover { color: v.$color-primary-light; }
+    }
+  }
+
+  &__bottom {
+    padding-top: 28px;
+    border-top: 1px solid v.$color-border;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__copy, &__disclaimer {
+    font-size: 0.75rem;
+    color: v.$color-text-subtle;
+    line-height: 1.5;
+  }
+}

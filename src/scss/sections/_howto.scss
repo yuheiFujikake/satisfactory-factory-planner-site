@@ -1,0 +1,99 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.howto {
+  padding: v.$section-py 0;
+
+  &__steps {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: center;
+
+    @include m.sp-tab {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  &__step {
+    padding: 32px;
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-xl;
+    text-align: center;
+    position: relative;
+    transition: transform v.$duration-base v.$ease-out-expo,
+                border-color v.$duration-base,
+                box-shadow v.$duration-base;
+
+    &:hover {
+      transform: translateY(-6px);
+      border-color: rgba(v.$color-primary, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 30px rgba(v.$color-primary, 0.05);
+
+      .howto__step-number { color: v.$color-primary-light; }
+      .howto__step-icon   { border-color: rgba(v.$color-primary, 0.4); background: rgba(v.$color-primary, 0.12); }
+    }
+  }
+
+  &__step-number {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: v.$font-mono;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: v.$color-text-subtle;
+    background: v.$color-card;
+    padding: 2px 10px;
+    border: 1px solid v.$color-border;
+    border-radius: 100px;
+    transition: color v.$duration-base;
+  }
+
+  &__step-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: v.$radius-md;
+    background: rgba(v.$color-primary, 0.08);
+    border: 1px solid rgba(v.$color-primary, 0.2);
+    @include m.flex-center;
+    color: v.$color-primary;
+    margin: 0 auto 20px;
+    transition: all v.$duration-base v.$ease-out-expo;
+  }
+
+  &__step-title {
+    font-family: v.$font-heading;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: v.$color-text;
+    margin-bottom: 12px;
+  }
+
+  &__step-desc {
+    font-size: 0.875rem;
+    color: v.$color-text-muted;
+    line-height: 1.7;
+  }
+
+  &__step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$color-text-subtle;
+    padding: 0 8px;
+
+    svg {
+      stroke-dasharray: 200;
+      animation: line-draw 1.5s ease 0.5s both;
+
+      path { stroke: currentColor; }
+    }
+
+    @include m.sp-tab { display: none; }
+  }
+}

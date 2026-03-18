@@ -1,0 +1,127 @@
+// ============================
+// Keyframe Animations
+// ============================
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-8px) rotate(1deg); }
+  66%       { transform: translateY(6px) rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 8px currentColor; }
+  50%       { opacity: 1;   box-shadow: 0 0 24px currentColor; }
+}
+
+@keyframes border-rotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.6); opacity: 0.7; }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(8px); opacity: 0.4; }
+}
+
+@keyframes grid-fade {
+  0%   { opacity: 0; }
+  100% { opacity: 0.04; }
+}
+
+@keyframes counter-tick {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes line-draw {
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.05); }
+}
+
+// ============================
+// Utility animation classes
+// ============================
+.anim-float        { animation: float 4s ease-in-out infinite; }
+.anim-float-slow   { animation: floatSlow 6s ease-in-out infinite; }
+.anim-fade-up      { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+// Reveal on scroll (JS toggles .is-visible)
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &--left {
+    transform: translateX(-30px);
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--right {
+    transform: translateX(30px);
+    &.is-visible { transform: translateX(0); }
+  }
+
+  &--scale {
+    transform: scale(0.95);
+    &.is-visible { transform: scale(1); }
+  }
+}
+
+// Stagger delays
+@for $i from 1 through 8 {
+  .reveal-delay-#{$i} {
+    transition-delay: #{($i - 1) * 0.1}s;
+  }
+}
