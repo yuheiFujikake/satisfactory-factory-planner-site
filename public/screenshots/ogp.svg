@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="100%" style="stop-color:#0f1629"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e2a3a"/>
+      <stop offset="100%" style="stop-color:#162030"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#64748b" stroke-width="1">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="60" y1="0" x2="60" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/>
+    <line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/>
+    <line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/>
+    <line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="660" y1="0" x2="660" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="780" y1="0" x2="780" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/>
+    <line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/>
+    <line x1="1140" y1="0" x2="1140" y2="630"/>
+  </g>
+
+  <!-- Ambient glow center-left -->
+  <ellipse cx="600" cy="315" rx="500" ry="280" fill="#f59e0b" opacity="0.03"/>
+
+  <!-- ===== Centered content ===== -->
+
+  <!-- Badge -->
+  <rect x="400" y="100" width="400" height="36" rx="18" fill="#1e2a3a" stroke="#f59e0b" stroke-width="1.5"/>
+  <circle cx="425" cy="118" r="6" fill="#f59e0b"/>
+  <text x="600" y="123" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#f59e0b" font-weight="500" text-anchor="middle">完全無料 · インストール不要 · ブラウザで即利用</text>
+
+  <!-- Logo icon (centered above title) -->
+  <g transform="translate(565, 165)" opacity="0.95">
+    <rect x="0" y="16" width="14" height="14" rx="2" fill="#f59e0b"/>
+    <rect x="26" y="8" width="14" height="14" rx="2" fill="#f59e0b"/>
+    <rect x="26" y="28" width="14" height="14" rx="2" fill="#f59e0b"/>
+    <rect x="52" y="16" width="14" height="14" rx="2" fill="#f59e0b"/>
+    <line x1="14" y1="23" x2="26" y2="15" stroke="#f59e0b" stroke-width="2" opacity="0.6"/>
+    <line x1="14" y1="23" x2="26" y2="35" stroke="#f59e0b" stroke-width="2" opacity="0.6"/>
+    <line x1="40" y1="15" x2="52" y2="23" stroke="#f59e0b" stroke-width="2" opacity="0.6"/>
+    <line x1="40" y1="35" x2="52" y2="23" stroke="#f59e0b" stroke-width="2" opacity="0.6"/>
+  </g>
+
+  <!-- App name -->
+  <text x="600" y="270" font-family="'Segoe UI', Arial, sans-serif" font-size="52" font-weight="700" fill="#f1f5f9" text-anchor="middle">Satisfactory</text>
+  <text x="600" y="332" font-family="'Segoe UI', Arial, sans-serif" font-size="52" font-weight="700" fill="#f1f5f9" text-anchor="middle">Factory <tspan fill="url(#accent)">Planner</tspan></text>
+
+  <!-- Tagline -->
+  <text x="600" y="390" font-family="'Segoe UI', Arial, sans-serif" font-size="22" fill="#94a3b8" text-anchor="middle">工場生産計画を、自動で最適化。</text>
+
+  <!-- Description -->
+  <text x="600" y="432" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#64748b" text-anchor="middle">生産目標を設定するだけで、必要な原材料・製造機械数・電力消費量を瞬時に算出します。</text>
+
+  <!-- Feature tags (centered) -->
+  <rect x="270" y="464" width="130" height="32" rx="16" fill="#1e2a3a" stroke="#334155" stroke-width="1"/>
+  <text x="335" y="485" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">127 アイテム</text>
+
+  <rect x="415" y="464" width="130" height="32" rx="16" fill="#1e2a3a" stroke="#334155" stroke-width="1"/>
+  <text x="480" y="485" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">107 レシピ</text>
+
+  <rect x="560" y="464" width="130" height="32" rx="16" fill="#1e2a3a" stroke="#334155" stroke-width="1"/>
+  <text x="625" y="485" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">依存グラフ対応</text>
+
+  <rect x="705" y="464" width="130" height="32" rx="16" fill="#1e2a3a" stroke="#334155" stroke-width="1"/>
+  <text x="770" y="485" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">電力消費計算</text>
+
+  <!-- URL -->
+  <text x="600" y="560" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#334155" text-anchor="middle">yuheifujikake.github.io/satisfactory-factory-planner-site</text>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1200" height="9" fill="url(#accent)"/>
+  <!-- Bottom accent bar -->
+  <rect x="0" y="621" width="1200" height="9" fill="url(#accent)"/>
+</svg>
